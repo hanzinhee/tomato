@@ -1,30 +1,26 @@
+import 'package:cupertino_stackview/cupertino_stackview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tomato/terminal.dart';
 
-class ScheduleWidget extends StatelessWidget {
+class StackSchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
-
+    cupertinoStackViewController.initialise(
+        MediaQuery.of(context).size.height, MediaQuery.of(context).size.width);
     Widget label() => Container(
-          margin: EdgeInsets.only(top: 10),
+          margin: EdgeInsets.only(top: 20),
           child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
-                  padding: EdgeInsets.all(0),
-                  onPressed: () => Provider.of<Terminal>(context, listen: false)
-                      .setTerminal(''),
-                  child: Text(
-                    Provider.of<Terminal>(context).getTerminal(),
-                    style: TextStyle(fontWeight: FontWeight.w200, fontSize: 28),
-                  ),
+                Text(
+                  "사창리",
+                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28),
                 ),
                 Icon(Icons.arrow_right),
                 Text(
-                  "춘천",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 28),
+                  Provider.of<Terminal>(context).getTerminal(),
+                  style: TextStyle(fontWeight: FontWeight.w200, fontSize: 28),
                 ),
               ]),
         );
@@ -32,7 +28,7 @@ class ScheduleWidget extends StatelessWidget {
     Widget schedule() {
       List<Widget> scheduleList = [];
 
-      for (var i = 1; i < 45; i++) {
+      for (var i = 1; i < 12; i++) {
         scheduleList.addAll([
           Container(
             decoration: BoxDecoration(
@@ -61,21 +57,16 @@ class ScheduleWidget extends StatelessWidget {
       );
     }
 
-    return AnimatedContainer(
-        alignment: Alignment.topCenter,
-        height: (Provider.of<Terminal>(context).getTerminal() == '')
-            ? 0
-            : size.height * 0.95,
-        width: size.width,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(14.0), topRight: Radius.circular(14.0)),
-        ),
-        duration: Duration(milliseconds: 400),
-        curve: Curves.linearToEaseOut,
-        child: Stack(
-          children: <Widget>[label(), schedule()],
-        ));
+    return CupertinoStackView(
+      false,
+      'stack_schedule',
+      Scaffold(
+        backgroundColor: Color(0xFFF2F2F7),
+        body: Stack(children: <Widget>[label(), schedule()]),
+      ),
+      Colors.black,
+      isDismissible: true,
+      radius: Radius.circular(10.0),
+    );
   }
 }

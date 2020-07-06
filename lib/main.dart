@@ -1,20 +1,40 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cupertino_stackview/cupertino_stackview.dart';
 import 'package:provider/provider.dart';
-import 'package:tomato/screens/index_page.dart';
 import 'package:tomato/terminal.dart';
+import 'package:tomato/index_page.dart';
+import 'package:tomato/stacks/stack_schedule.dart';
+
+GlobalKey<NavigatorState> navigatorState = GlobalKey<NavigatorState>();
 
 void main() {
-  runApp(App());
+  cupertinoStackViewController = CupertinoStackViewController(
+    navigatorState,
+    {
+      "index": (BuildContext context, dynamic parameters) {
+        return IndexPage();
+      },
+      "stack_schedule": (BuildContext context, dynamic parameters) {
+        return StackSchedule();
+      },
+    },
+  );
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => Terminal()),
+    ],
+    child: MyApp(),
+  ));
 }
 
-class App extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'TOMATO',
-      home: ChangeNotifierProvider<Terminal>(
-          create: (context) => Terminal(), child: IndexPage()),
+      home: IndexPage(),
+      navigatorKey: navigatorState,
     );
   }
 }
