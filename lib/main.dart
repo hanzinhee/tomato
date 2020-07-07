@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cupertino_stackview/cupertino_stackview.dart';
 import 'package:provider/provider.dart';
-import 'package:tomato/terminal.dart';
+import 'package:tomato/providers/tomato.dart';
 import 'package:tomato/index_page.dart';
 import 'package:tomato/stacks/stack_schedule.dart';
 
@@ -22,7 +22,7 @@ void main() {
   );
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (_) => Terminal()),
+      ChangeNotifierProvider(create: (_) => Tomato()),
     ],
     child: MyApp(),
   ));
