@@ -104,7 +104,7 @@ class Label extends StatelessWidget {
         height: 90,
         width: size.width * 0.5,
         decoration: BoxDecoration(
-            color: Color(0xFFD92534),
+            color: Color(0xFFFF6347),
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30))),

@@ -37,14 +37,18 @@ class IndexPage extends StatelessWidget {
       true,
       'index',
       Scaffold(
-        extendBody: true,
-        // extendBodyBehindAppBar: true,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(40.0),
+          preferredSize: Size.fromHeight(50.0),
           child: AppBar(
+            brightness: Brightness.light,
             elevation: 0,
+            // shape: RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.vertical(
+            //     bottom: Radius.circular(30),
+            //   ),
+            // ),
             // toolbarOpacity: 0.1,
-            backgroundColor: Color(0xFF99A637),
+            backgroundColor: Color(0xFFFF6347),
             centerTitle: true,
             title: Text(
               "사창리 버스터미널 시간표",
@@ -52,8 +56,7 @@ class IndexPage extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: Color(0xFF99A637),
-
+        backgroundColor: Color(0xFFFF6347),
         body: FutureBuilder<List<ToTerminal>>(
           // future 항목에 fetchToTerminals 함수 설정. fetchToTerminals Future 객체를 결과값으로 반환
           future: fetchToTerminals(http.Client()),
@@ -95,12 +98,16 @@ class ToTerminalsList extends StatelessWidget {
         },
         children: [
           for (final ToTerminal in toTermianls)
-            Card(
+            Container(
+              margin: EdgeInsets.only(bottom: size.height * 0.01),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(36))),
               key: Key('${ToTerminal.id}'),
               child: ListTile(
                 leading: Icon(
                   Icons.location_on,
-                  size: 35,
+                  size: 36,
                   // color: Color(0xFFD92534),
                 ),
                 title: Text(
